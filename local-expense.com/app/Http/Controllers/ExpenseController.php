@@ -13,7 +13,7 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::get();
+        $expenses = Expense::has('expenseType')->get();
         return view('expenses.index')->with('expenses', $expenses);
     }
 
