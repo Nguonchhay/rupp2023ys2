@@ -12,6 +12,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">Expense Type</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Expense Date</th>
                                 <th scope="col">Amount</th>
@@ -32,12 +33,27 @@
                                 @foreach($expenses as $expense)
                                     <tr>
                                         <th scope="row">{{ $loop->index + 1 }}</th>
+                                        <td>{{ $expense->expenseType->title }}</td>
                                         <td>{{ $expense->title }}</td>
                                         <td>{{ $expense->expense_date }}</td>
                                         <td>{{ $expense->amount }}</td>
                                         <td>{{ $expense->description }}</td>
                                         <td>
-
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('expenses.edit', ['expense' => $expense->id]) }}" class="btn btn-info">Edit</a>
+                                                <form id="form{{ $expense->id }}" method="POST" action="{{ route('expenses.destroy', ['expense' => $expense->id]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <a href="javascript:void" onClick="onDelete('form{{ $expense->id }}')" class="btn btn-danger">Delete</a>
+                                                    <script type="text/javascript">
+                                                        function onDelete(id) {
+                                                            if (confirm('Are you sure?')) {
+                                                                document.getElementById(id).submit();
+                                                            }
+                                                        }
+                                                    </script>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

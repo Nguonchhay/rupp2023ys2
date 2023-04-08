@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Expense;
+use App\Models\ExpenseType;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -21,7 +22,8 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        return view('expenses.create');
+        $expenseTypes = ExpenseType::pluck('title', 'id');
+        return view('expenses.create')->with('expenseTypes', $expenseTypes);
     }
 
     /**
@@ -46,7 +48,7 @@ class ExpenseController extends Controller
      */
     public function edit(Expense $expense)
     {
-        //
+        return view('expenses.edit')->with('expense', $expense);
     }
 
     /**
@@ -54,7 +56,12 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, Expense $expense)
     {
-        //
+        $expense->title = $request->get('title');
+        $expense->expense_date = $request->get('expense_date');
+        $expense->amount = $request->get('amount');
+        $expense->description = $request->get('description');
+        $expense->save();
+        return redirect()->route('expenses.index');
     }
 
     /**
@@ -62,6 +69,7 @@ class ExpenseController extends Controller
      */
     public function destroy(Expense $expense)
     {
-        //
+        $expense->delete();
+        return redirect()->route('expenses.index');
     }
 }
