@@ -53,6 +53,9 @@
                                 <a class="nav-link" href="{{ route('expenses.index') }}" role="button">
                                     Expenses
                                 </a>
+                                <a class="nav-link" href="{{ route('incomes.index') }}" role="button">
+                                    Incomes
+                                </a>
                             </li>
 
                             <li class="nav-item dropdown">

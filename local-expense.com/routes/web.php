@@ -27,3 +27,5 @@ Route::post('/expenses', [App\Http\Controllers\ExpenseController::class, 'store'
 Route::get('/expenses/{expense}/edit', [App\Http\Controllers\ExpenseController::class, 'edit'])->name('expenses.edit');
 Route::put('/expenses/{expense}', [App\Http\Controllers\ExpenseController::class, 'update'])->name('expenses.update');
 Route::delete('/expenses/{expense}', [App\Http\Controllers\ExpenseController::class, 'destroy'])->name('expenses.destroy');
+
+Route::get('/incomes', [App\Http\Controllers\IncomeController::class, 'index'])->middleware(['admin_access'])->name('incomes.index');
